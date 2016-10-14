@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>test</title>
+  <link rel="stylesheet" href="dist/myCms.min.css">
+</head>
+<body>
+<div class="container-demo">
+  <div class="box">
+    <input type="button" value="弹窗" id="btn"/>
+  </div>
+</div>
+<script>
+
+  var EventUtil = {
+    getEvent: function (event) {
+      return event ? event : window.event;
+    },
+    getTarget: function (event) {
+      return event.target || event.srcElement;
+    },
+    getRelatedTarget: function (event) {
+      if (event.relatedTarget) {
+        return event.relatedTarget;
+      } else if (event.toElement) {
+        return event.toElement;
+      } else if (event.fromElement) {
+        return event.fromElement;
+      } else {
+        return null;
+      }
+    },
+    addHandler: function (element, type, handler) {
+      if (element.addEventListener) {
+        element.addEventListener(type, handler, false);
+      } else if (element.attachEvent) {
+        element.attachEvent("on" + type,
+          function () {
+            return handler.call(element, window.event);
+          });
+      } else {
+        element["on" + type] = handler;
+      }
+    },
+    removeListener: function (element, type, hander) {
+      if (element.removeEventListener) {
+        element.removeEventListener(type, hander, false);
+      } else if (element.deattachEvent) {
+        element.detachEvent("on" + type,
+          function () {
+            return handler.call(element, window.event);
+          });
+      } else {
+        element['on' + type] = null;
+      }
+    },
+    preventDefault: function (event) {
+      if (event.preventDefault) {
+        event.preventDefault();
+      } else {
+        event.returnValue = false;
+      }
+    },
+    stopPropagation: function (event) {
+      if (event.stopPropagation) {
+        event.stopPropagation();
+      } else {
+        event.cancelBubble = true;
+      }
+    }
+  };
+
+
+  var btn = document.getElementById("btn"),
+    ele = document.createElement("div"),
+    flag = 0;
+  ele.className = "overlay";
+  document.body.appendChild(ele);
+  EventUtil.addHandler(btn, "click", alerts);
+  EventUtil.addHandler(ele, "click", alerts);
+  function alerts() {
+    if (!flag) {
+      ele.style.display = "block";
+    } else {
+      ele.style.display = "none";
+    }
+    flag = !flag;
+  }
+</script>
+</body>
+</html>

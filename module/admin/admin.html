@@ -1,0 +1,33 @@
+<nav class="navbar">
+  <div class="pull-right">
+    <div class="user-body ">
+      <sapn class = "log-user"> {{manageName}}</sapn>&nbsp;&nbsp;&nbsp;
+      <a href class="logout" ng-click="logout()">退出登录</a>
+    </div>
+  </div>
+</nav>
+<div class = "main-content">
+  <section class="left-module">
+    <div class="menu-box">
+      <nav class="sidebar-menu">
+        <a class="menu-first" ng-repeat-start="(key,value) in menuData track by $index">
+          <span><i class="glyphicon {{value.moduleIcon}}"></i>{{value.moduleName}}</span>
+        </a>
+        <ul class=" menu-second " ng-repeat-end ng-if="value.menu.length>0">
+          <li ng-repeat="men in value.menu track by $index">
+            <a ui-sref-active="active" ui-sref="{{men.route}}" ng-click="postJudge($event)">
+              <span><i class="glyphicon  {{men.menuIcon}}"></i>{{men.menuName}}</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!--<menu menu-data="menuData"></menu>-->
+  </section><!--
+--><section class="right-module">
+  <tab-list tab-data="tab" class="pd-horizontal-sm"></tab-list>
+  <div ui-view class="pd-sm view-body"></div>
+</section>
+</div>
+<footer>angular-cms copyright@2016  design by cjj</footer>
+
