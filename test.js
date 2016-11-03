@@ -25,7 +25,7 @@ var obj1 = {
 }
 var obj2 = cloneObj(obj1);
 var origin = [1, 2, 3, 4, 5]
-//console.log("origon: ", origin);
+//console.log("origon: ", originssssssss);
 var deep = cloneObj(origin);
 deep[0] = 0;
 //console.log("deepcopy: ", origin);
